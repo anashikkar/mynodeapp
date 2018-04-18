@@ -1,12 +1,12 @@
-FROM python:3.4
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        postgresql-client \
-    && rm -rf /var/lib/apt/lists/*
-WORKDIR /usr/src/app
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
-COPY . .
+FROM ubuntu:16.04
+RUN apt-get update && apt-get -y upgrade
+ENV PATH /usr/local/bin:$PATH
+RUN apt-get install -y python3.5 python3-pip
+RUN pip3 install --upgrade pip
+WORKDIR /root/website/
+#RUN mkdir /srv 
+#COPY /home/ubuntu/website/mysite /srv 
+ADD . /root/website
+RUN pip3 install -r requirements.txt
 EXPOSE 8000
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
+CMD ["./start.sh"]

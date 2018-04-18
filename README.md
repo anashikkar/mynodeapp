@@ -1,2 +1,0 @@
-# mynodeapp
-My Node app
